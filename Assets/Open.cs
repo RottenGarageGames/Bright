@@ -11,10 +11,16 @@ public class Open : MonoBehaviour
     public float MaxRotation;
     public float Timer;
     public bool InRange;
+    public bool NegativeRotation;
     // Start is called before the first frame update
     void Start()
     {
         _enterTrigger = gameObject.GetComponent<SphereCollider>();
+
+        if (NegativeRotation)
+        {
+            RotationRate *= -1;
+        }
     }
 
     // Update is called once per frame
