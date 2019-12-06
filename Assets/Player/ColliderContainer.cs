@@ -16,7 +16,10 @@ public class ColliderContainer : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        colliders.Remove(other);
+        if (colliders.Contains(other))
+        {
+            colliders.Remove(other);
+        }
     }
 
 }

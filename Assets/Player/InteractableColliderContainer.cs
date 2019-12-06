@@ -10,9 +10,12 @@ public class InteractableColliderContainer : ColliderContainer
 
         foreach (var item in GetColliders())
         {
-            if(item.GetComponent<IInteractable>() != null)
+            if (item != null)
             {
-                items.Add(item.gameObject);
+                if (item.GetComponent<IInteractable>() != null)
+                {
+                    items.Add(item.gameObject);
+                }
             }
         }
 

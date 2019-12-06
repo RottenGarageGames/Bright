@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/LowPolyTestScene.unity
+    guid: d27e00f82a1044f469c76dcca557ef8d
   m_configObjects: {}
