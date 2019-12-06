@@ -8,7 +8,7 @@
 
             foreach(var property in properties)
             {
-                property.SetValue(obj, property);
+                property.SetValue(obj, property.GetValue(copyObject));
             }
         }
 

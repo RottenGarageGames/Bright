@@ -15,12 +15,7 @@ namespace Classes
         public int XSensitivity { get; set; } = 3;
         public int YSensitivity { get; set; } = 3;
         public GameDifficulty Difficulty { get; set; } = GameDifficulty.Easy;
-
-        public Settings()
-        {
-            Load();
-        }
-
+        
         public void Save()
         {
             var settingsString = JsonConvert.SerializeObject(this);
