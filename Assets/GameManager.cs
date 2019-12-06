@@ -8,24 +8,29 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Settings Settings { get; set; } = new Settings();
+    public Settings Settings { get; set; }
 
     public PlayerController Player;
 
-    public Timer AutoSaveTimer;
-
-    public GameManager()
+    private float _autoSaveTime = 0;
+    
+    private void Start()
     {
-        SetupAutoSaveTimer();
+        Settings = new Settings();
 
         Load();
+    }
+
+    private void Update()
+    {
+        DoAutoSaveLogic();
     }
 
     public void SaveGameState(int? slot = null)
     {
         var saveStateData = new SaveStateData(Player);
 
-        var stringData = JsonConvert.SerializeObject(saveStateData);
+        var stringData = saveStateData.Serialize();
 
         string fileName = slot.HasValue ? $"Slot{slot.Value}_{DateTime.Now.ToShortDateString()}".Replace('/', '.').Replace(' ', '_').Replace(':', '.') + ".json" : "AutoSave.json";
 
@@ -87,20 +92,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetupAutoSaveTimer()
-    {
-        TimerCallback callback = (object state) =>
-        {
-            SaveGameState();
-        };
-
-        AutoSaveTimer = new Timer(callback);
-
-        AutoSaveTimer.Change(TimeSpan.FromMinutes(Settings.AutoSaveInterval), TimeSpan.FromMinutes(Settings.AutoSaveInterval));
-    }
-
     public void UpdateByGameData(SaveStateData saveStateData)
     {
         Player = saveStateData.Player;
+    }
+
+    private void DoAutoSaveLogic()
+    {
+        _autoSaveTime += Time.deltaTime;
+
+        if (Settings.AutoSave && _autoSaveTime >= Settings.AutoSaveInterval * 60)
+        {
+            SaveGameState();
+
+            _autoSaveTime = 0;
+        }
     }
 }
