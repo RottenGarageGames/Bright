@@ -52,6 +52,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Interact Called");
             ScanForInteractables();
         }
+        if(Input.GetAxis("Attack") > 0)
+        {
+
+        }
 
 
     }
@@ -63,7 +67,7 @@ public class PlayerController : MonoBehaviour
         foreach (var item in items)
         {
             var interactable = item.gameObject.GetComponent<IInteractable>();
-            interactable.Interact();
+            interactable.Interact(gameObject);
         }
 
     }

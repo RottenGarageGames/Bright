@@ -9,7 +9,7 @@ public class LoadItem : MonoBehaviour
 {
 
     private IItemRepository itemRepository;
-    public int ID;
+    public string ID;
     public string Name;
 
     // Start is called before the first frame update

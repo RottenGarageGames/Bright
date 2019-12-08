@@ -11,7 +11,7 @@ public class WeatherParticleController : ParticleController, IInteractable
     {
         SetParticleSystems();
     }
-    public void Interact()
+    public void Interact(GameObject interactor)
     {
         StartEvent();
     }

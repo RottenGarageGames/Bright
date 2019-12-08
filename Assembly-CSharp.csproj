@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CameraAnimation.cs" />
     <Compile Include="Assets\CampfireParticleController.cs" />
     <Compile Include="Assets\Classes\Extensions.cs" />
     <Compile Include="Assets\Classes\Globals.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="Assets\Classes\Settings.cs" />
     <Compile Include="Assets\EventManager.cs" />
     <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\LoadScene.cs" />
+    <Compile Include="Assets\MouseLook.cs" />
     <Compile Include="Assets\Player\ColliderContainer.cs" />
     <Compile Include="Assets\Player\InteractableColliderContainer.cs" />
     <Compile Include="Assets\RandomScaler.cs" />
@@ -83,9 +86,12 @@
     <Compile Include="Assets\Scripts\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\FilterColors.cs" />
     <Compile Include="Assets\Scripts\Interactables\Campfire.cs" />
+    <Compile Include="Assets\Scripts\Interactables\ItemPickup.cs" />
+    <Compile Include="Assets\Scripts\Interactables\ItemTaker.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IInteractable.cs" />
     <Compile Include="Assets\Scripts\Inventory\IItemContainer.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ItemSlot.cs" />
     <Compile Include="Assets\Scripts\LoadItem.cs" />
     <Compile Include="Assets\Scripts\Open.cs" />
     <Compile Include="Assets\Scripts\ParticleController.cs" />
@@ -96,10 +102,28 @@
     <Compile Include="Assets\Scripts\Utilities\NumberGenerator.cs" />
     <Compile Include="Assets\Scripts\WeatherParticleController.cs" />
     <Compile Include="Assets\Tree.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\Resources\Items.txt" />
     <None Include="Assets\Environment\Shaders\Fire.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Environment\Shaders\Fire 1.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\Samples\Terrain Tools\0.1.0-preview\Terrain Assets\ThirdPartyNotices.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Mike/Documents/GitHub/Bright/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

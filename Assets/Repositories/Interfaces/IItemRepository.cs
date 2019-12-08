@@ -5,7 +5,7 @@ namespace ItemRepository.Interface
     public interface IItemRepository
     {
         IEnumerable<Item> GetItems();
-        Item GetItem(int ItemID);
+        Item GetItem(string ItemID);
         void AddItem(Item newItem);
         void UpdateItem(int ItemID, Item updatedItem);
         void DeleteItem(int itemID);

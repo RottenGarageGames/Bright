@@ -5,9 +5,13 @@ using UnityEngine;
 public class Tree : MonoBehaviour, IInteractable
 {
     public GameObject LogPrefab;
-    public void Interact()
+    public int SpawnCount;
+    public void Interact(GameObject interactor)
     {
-        Instantiate(LogPrefab, gameObject.transform.position, Quaternion.identity);
+        for (int i = 0; i < SpawnCount; i++)
+        {
+            Instantiate(LogPrefab, gameObject.transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

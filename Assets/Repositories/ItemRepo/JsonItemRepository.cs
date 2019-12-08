@@ -25,7 +25,7 @@ namespace Assets.Repositories.ItemRepo
             return items;
         }
 
-        public Item GetItem(int ID)
+        public Item GetItem(string ID)
         {
             var items = GetItems();
             var item = items.FirstOrDefault(x => x.ID == ID);

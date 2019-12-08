@@ -11,9 +11,9 @@ public class EventManager : MonoBehaviour
 
      void OnGUI()
     {
-        if (GUI.Button(new Rect(Screen.width / 2 - 50, 5, 100, 30), "Click"))
-        {
-           OnInteract?.Invoke();
-        }
+        //if (GUI.Button(new Rect(Screen.width / 2 - 50, 5, 100, 30), "Click"))
+        //{
+        //   OnInteract?.Invoke();
+        //}
      }
 }

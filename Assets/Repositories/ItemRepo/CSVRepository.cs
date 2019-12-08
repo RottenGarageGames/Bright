@@ -30,7 +30,6 @@ namespace ItemRepository.CSV
                         var elems = line.Split(',');
                         var item = new Item()
                         {
-                            ID = int.Parse(elems[0]),
                             Name = elems[1],
                         };
                         items.Add(item);
@@ -41,7 +40,7 @@ namespace ItemRepository.CSV
             return items;
         }
 
-        public Item GetItem(int ID)
+        public Item GetItem(string ID)
         {
             
             Item item = new Item();
@@ -53,11 +52,10 @@ namespace ItemRepository.CSV
                 {
                     var elems = line.Split(',');
 
-                    int parsedId = int.Parse(elems[0]);
+                    var parsedId = elems[0];
 
                     if (parsedId == ID)
                     {
-                        item.ID = int.Parse(elems[0]);
                         item.Name = elems[1];
                     }
                 }

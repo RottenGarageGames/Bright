@@ -5,64 +5,127 @@ using System.Linq;
 using ItemRepository.Interface;
 using UnityEngine;
 
-public class Inventory : IItemContainer
+public class Inventory : MonoBehaviour, IItemContainer
 {
-    public List<Item> items;
-    public int MaxItems;
+    [SerializeField] List<Item> startingItems;
+    [SerializeField] Transform itemsParent;
+    [SerializeField] ItemSlot[] itemSlots;
 
-    public event Action<Item> OnItemInteract;
+    private void OnValidate()
+    {
+        if(itemsParent != null)
+        {
+            itemSlots = itemsParent.GetComponentsInChildren<ItemSlot>();
+        }
+
+        SetStartingItems();
+    }
+    private void Start()
+    {
+        SetStartingItems();
+    }
+
+    private void SetStartingItems()
+    {
+        int i = 0;
+
+        for(; i < startingItems.Count && i < itemSlots.Length; i++)
+        {
+            itemSlots[i].Item = startingItems[i];
+            itemSlots[i].Amount = 1;
+        }
+
+        for(; i < itemSlots.Length; i++)
+        {
+            itemSlots[i].Item = null;
+            itemSlots[i].Amount = 0;
+        }
+
+    }
+
     public bool AddItem(Item item)
     {
-        if(!IsFull())
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            items.Add(item);
-            return true;
+            if(itemSlots[i].Item == null || (itemSlots[i].Item.ID == item.ID && itemSlots[i].Amount < item.MaximumStacks))
+            {
+                itemSlots[i].Item = item;
+                itemSlots[i].Amount++;
+                return true;
+            }
         }
-        else
+
+        return false;
+    }
+    public bool RemoveItem(Item item)
+    {
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            return false;
+            if (itemSlots[i].Item == item)
+            {
+                itemSlots[i].Amount--;
+                if (itemSlots[i].Amount == 0)
+                {
+                    itemSlots[i].Item = null;
+                }
+                return true;
+            }
         }
+        return false;
+    }
+    public Item RemoveItem(string itemID)
+    {
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            Item item = itemSlots[i].Item;
+
+            if (item != null && item.ID == itemID)
+            {
+                itemSlots[i].Amount--;
+                if (itemSlots[i].Amount == 0)
+                {
+                    itemSlots[i].Item = null;
+                }
+                return item;
+            }
+        }
+        return null;
+    }
+    public bool IsFull()
+    {
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            if (itemSlots[i].Item == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public bool ContainsItem(Item item)
     {
-        if (items.Where(x => x.ID == item.ID).FirstOrDefault() != null)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            return true;
+            if (itemSlots[i]?.Item == item)
+            {
+                return true;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
-    public bool IsFull()
+    public int ItemCount(string itemId)
     {
-        if (items.Count() >= MaxItems)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+        var count = 0;
 
-    public int ItemCount(Item item)
-    {
-        return items.Where(x => x.ID == item.ID).Count(); 
-    }
-
-    public bool RemoveItem(Item item)
-    {
-        if(ContainsItem(item))
-        {
-            items.Remove(item);
-            return true;
+        for (int i = 0; i < itemSlots.Length; i++)
+        { 
+            if (itemSlots[i]?.Item?.ID == itemId)
+            {
+                count += itemSlots[i].Amount;
+            }
         }
-        else
-        {
-            return false;
-        }
+       return count;
     }
 }
