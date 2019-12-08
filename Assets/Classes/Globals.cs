@@ -20,7 +20,14 @@ namespace Classes
 
         public static string ReadGameFileText(string fileName)
         {
-            return File.ReadAllText(GameFilePath + fileName);
+            var filePath = GameFilePath + fileName;
+
+            if (!File.Exists(filePath))
+            {
+                return null;
+            }
+
+            return File.ReadAllText(filePath);
         }
     }
 }
