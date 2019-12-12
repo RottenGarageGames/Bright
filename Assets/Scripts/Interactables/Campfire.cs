@@ -6,39 +6,38 @@ using UnityEngine;
 
 public class Campfire : MonoBehaviour, IInteractable
 {
-    public ParticleSystem Smoke;
-    public string SmokeGameObjectName;
-    public bool On = true;
-    public CampfireParticleController CampfireParticleController;
-    public float MaxFuel;
-    public float Fuel;
-    public float FuelTimer;
-    public float FuelTimerDefaultValue;
-    public float FuelLossRate;
-
-    public ItemTaker ItemTaker;
+    [SerializeField] ParticleSystem _smoke;
+    [SerializeField] string _smokeGameObjectName;
+    [SerializeField] bool On = true;
+    [SerializeField] CampfireParticleController _campfireParticleController;
+    [SerializeField] float _maxFuel;
+    [SerializeField] float _fuel;
+    [SerializeField] ItemTaker _itemTaker;
+    [SerializeField] LightController _flameLightController;
+    [SerializeField] float _fuelAddAmount;
 
     private void Start()
     {
-        Smoke = gameObject.GetComponentsInChildren<ParticleSystem>().Where(x => x.name == SmokeGameObjectName).FirstOrDefault();
-        CampfireParticleController = gameObject.GetComponent<CampfireParticleController>();
-        ItemTaker = gameObject.GetComponent<ItemTaker>();
+        _smoke = gameObject.GetComponentsInChildren<ParticleSystem>().Where(x => x.name == _smokeGameObjectName).FirstOrDefault();
+        _campfireParticleController = gameObject.GetComponent<CampfireParticleController>();
+        _itemTaker = gameObject.GetComponent<ItemTaker>();
+        _flameLightController = gameObject.GetComponentInChildren<LightController>();
     }
     private void Update()
     {
 
         if (On)
         {
-            FuelTimer -= Time.deltaTime;
-            if (FuelTimer <= 0)
+            if (_fuel > 0)
             {
-                FuelTimer = FuelTimerDefaultValue;
-                Fuel -= FuelLossRate;
-                CampfireParticleController.SetParticleSizeFromFloat(Fuel);
+                _fuel -= Time.deltaTime;
+                _campfireParticleController.SetParticleSizeFromFloat(_fuel);
             }
+
+            UpdateLightRadius();
         }
 
-        if (Fuel <= 0 && On)
+        if (_fuel <= 0 && On)
         {
             DisableFire();
         }
@@ -47,23 +46,23 @@ public class Campfire : MonoBehaviour, IInteractable
     public void ActivateFire()
     {
       On = true;
-      Smoke.Play();
+      _smoke.Play();
     }
     private void DisableFire()
     {
-        Smoke.Stop();
+        _smoke.Stop();
         On = false;
     }
 
     public void Interact(GameObject interactingObject)
     {
-        if (Fuel < MaxFuel)
+        if (_fuel < _maxFuel)
         {
             var interactingInv = interactingObject.GetComponentInChildren<Inventory>();
-            if (ItemTaker.TakeItems(interactingInv))
+            if (_itemTaker.TakeItems(interactingInv))
             {
 
-                AddFuel(20f);
+                AddFuel(_fuelAddAmount);
                 if (!On)
                 {
                     ActivateFire();
@@ -73,7 +72,11 @@ public class Campfire : MonoBehaviour, IInteractable
     }
     public void AddFuel(float fuelAmount)
     {
-        Fuel += fuelAmount;
-        CampfireParticleController.SetParticleSizeFromFloat(Fuel);
+        _fuel += fuelAmount;
+        _campfireParticleController.SetParticleSizeFromFloat(_fuel);
+    }
+    private void UpdateLightRadius()
+    {
+        _flameLightController.SetLightRadius(_fuel / _maxFuel);
     }
 }
