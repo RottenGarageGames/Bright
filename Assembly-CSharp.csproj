@@ -71,6 +71,7 @@
     <Compile Include="Assets\Classes\Settings.cs" />
     <Compile Include="Assets\EventManager.cs" />
     <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\InputManager.cs" />
     <Compile Include="Assets\LightController.cs" />
     <Compile Include="Assets\LoadScene.cs" />
     <Compile Include="Assets\MouseLook.cs" />

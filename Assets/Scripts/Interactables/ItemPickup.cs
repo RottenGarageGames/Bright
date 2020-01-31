@@ -1,6 +1,4 @@
 ﻿using ItemRepository.Interface;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPickup : MonoBehaviour, IInteractable
@@ -20,21 +18,28 @@ public class ItemPickup : MonoBehaviour, IInteractable
     }
     private void OnTriggerExit(Collider other)
     {
-        inventory = null;
-        InRange = false;
+        //inventory = null;
+        //InRange = false;
     }
 
     public void Interact(GameObject interactingObject)
     {
         Debug.Log("Called Interact on Item Pickup Object");
-        if (InRange)
+
+        if(inventory is null)
         {
+            return;
+
+        }
+
+        //if (InRange)
+        //{
           var pickedUp = inventory.AddItem(item);
 
             if(pickedUp)
             {
                 Destroy(gameObject);
             }
-        };
+        //};
     }
 }
