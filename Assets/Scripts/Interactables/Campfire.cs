@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Campfire : MonoBehaviour, IInteractable
+public class Campfire : MonoBehaviour, IInteractable, IHeatSource
 {
     [SerializeField] ParticleSystem _smoke;
     [SerializeField] string _smokeGameObjectName;
@@ -15,6 +15,8 @@ public class Campfire : MonoBehaviour, IInteractable
     [SerializeField] ItemTaker _itemTaker;
     [SerializeField] LightController _flameLightController;
     [SerializeField] float _fuelAddAmount;
+    public List<HeatingSystem> heatingSystems;
+    public int MaxHeatValue;
 
     private void Start()
     {
@@ -40,6 +42,11 @@ public class Campfire : MonoBehaviour, IInteractable
         if (_fuel <= 0 && On)
         {
             DisableFire();
+        }
+
+        if(heatingSystems.Count > 0)
+        {
+            ApplyHeat();
         }
 
     }
@@ -79,4 +86,53 @@ public class Campfire : MonoBehaviour, IInteractable
     {
         _flameLightController.SetLightRadius(_fuel / _maxFuel);
     }
+
+    public int GetHeatValue()
+    {
+        Debug.Log("Getting Value");
+        return (int)(MaxHeatValue * (_fuel / _maxFuel));
+    }
+    public void ApplyHeat()
+    {
+        var heatValue = GetHeatValue();
+
+        foreach (var item in heatingSystems)
+        {
+            item.ApplyHeat(heatValue);
+        }
+    }
+    public bool IsActive()
+    {
+        return On;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        var systems = other.gameObject.GetComponentsInChildren<HeatingSystem>();
+        if(systems != null)
+        {
+            foreach (var item in systems)
+            {
+                if (!heatingSystems.Contains(item))
+                {
+                    heatingSystems.Add(item);
+                }
+            }
+            Debug.Log("Object has Heating System");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+      if (other.gameObject.GetComponents<HeatingSystem>() != null)
+        {
+            var exitingObjects = other.gameObject.GetComponentsInChildren<HeatingSystem>();
+
+            foreach (var item in exitingObjects)
+            {
+                heatingSystems.Remove(item);
+            }
+
+            Debug.Log("Object has Heating System");
+        }
+    }
 }
+ 
