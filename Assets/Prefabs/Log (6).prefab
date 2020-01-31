@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2515237064968074671}
   - component: {fileID: 7868320623964970293}
   - component: {fileID: 5454499021845104388}
+  - component: {fileID: 1507125238}
   m_Layer: 0
   m_Name: Log (6)
   m_TagString: Untagged
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 54e0c977a08a5b84db7c47bd21f3c318, type: 2}
+  - {fileID: 2100000, guid: 9b03712af05c8bd42a6af3db1da6093e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,6 +124,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40611298b1facb6419383602ecb88ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: e418f44c2c788334aa7b31a934b51057, type: 2}
   inventory: {fileID: 0}
   InRange: 0
+--- !u!135 &1507125238
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4441670005408099622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.87
+  m_Center: {x: -0.00000004260873, y: 0.09546095, z: 0.000000001778667}
